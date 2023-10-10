@@ -3,43 +3,46 @@ from  pyweb3d.pyweb3d import *
 
 # the required libraries are loaded in the html page. Ignore the "not defined" warnings.
 
+# initialize and prepare the 3D scene
 scene = Scene()
-camera = PerspectiveCamera( 45,
-                           window.innerWidth / window.innerHeight,
-                           0.1,
-                           1000)
 renderer = WebGLRenderer()
-
 renderer.setSize( window.innerWidth, window.innerHeight )
 document.body.appendChild( renderer.domElement )
 
+# define the geometry and material
 geometry = SphereGeometry( 4, 16, 16 )
-
 material = MeshLambertMaterial(
         {
         'color': 0x772667
         }
     )
+
+#  create and add the Mesh object
 meshObj = Mesh( geometry, material )
 scene.add( meshObj )
 
 # add lighting to display the mesh object
-light = PointLight('0xFFFFFF')
+light = PointLight(0xFFFFFF)
 light.position.set(-10, 15, 50)
 scene.add( light )
 
-# move the camera out
+# add camera with appropriate field of view
+camera = PerspectiveCamera( 45,
+                           window.innerWidth / window.innerHeight,
+                           0.1,
+                           1000)
 camera.position.z = 20
 
+# START FUNCTION DEFINITIONS
 def animate(time):
-    window.requestAnimationFrame( animate )
-
-    meshObj.rotation.x += 0.01
-    meshObj.rotation.y += 0.01
-
-    renderer.render( scene, camera )
-
-from browser import document, window
+	"""
+	main function to animate the object.
+	Ideally, this should be the only "non-pure" function that uses/modifies variables beyond its context.
+	"""
+	window.requestAnimationFrame( animate )
+	meshObj.rotation.x += 0.01
+	meshObj.rotation.y += 0.01
+	renderer.render( scene, camera )
 		
 def isWebGLAvailable():
 	try:
@@ -93,9 +96,10 @@ def getWebGLErrorMessage():
 def getWebGL2ErrorMessage():
 	return getErrorMessage( 2 )
 
+# END FUNCTION DEFINITIONS
 
 if isWebGLAvailable():
-	# Initiate function or other initializations here
+	# animate only if required WebGL is supported
 	animate(0)
 else:
 	warning = getWebGLErrorMessage()
