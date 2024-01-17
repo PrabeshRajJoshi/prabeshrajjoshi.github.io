@@ -1,0 +1,18 @@
+body {
+	margin: 0;
+}
+
+html body {
+	overflow-x: hidden;
+}
+
+#info {
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute;
+	top: 16%;
+	left: 50%;
+	font-size: 3vh;
+	color: white;
+	transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+  }
