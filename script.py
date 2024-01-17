@@ -3,10 +3,23 @@ from  pyweb3d.pyweb3d import *
 
 # the required libraries are loaded in the html page. Ignore the "not defined" warnings.
 
+# select the canvas to render the object
+canvas = document.querySelector('.webgl')
+
 # initialize and prepare the 3D scene
 scene = Scene()
 renderer = WebGLRenderer()
+# renderer = WebGLRenderer({canvas})
 renderer.setSize( window.innerWidth, window.innerHeight )
+
+# resize handler
+def onWindowResize(resize):
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize( window.innerWidth, window.innerHeight )
+
+window.addEventListener( 'resize', onWindowResize )
+
 document.body.appendChild( renderer.domElement )
 
 # define the geometry and material
@@ -32,6 +45,11 @@ camera = PerspectiveCamera( 45,
                            0.1,
                            1000)
 camera.position.z = 20
+# # is this required?
+# scene.add(camera)
+
+# follow window resize
+window.addEventListener('resize',())
 
 # START FUNCTION DEFINITIONS
 def animate(time):
@@ -95,6 +113,13 @@ def getWebGLErrorMessage():
 
 def getWebGL2ErrorMessage():
 	return getErrorMessage( 2 )
+
+def resize_canvas():
+	# get the current window size
+	return {
+		"width": window.innerWidth,
+		"height": window.innerHeight
+	}
 
 # END FUNCTION DEFINITIONS
 
