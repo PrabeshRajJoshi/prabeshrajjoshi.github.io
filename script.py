@@ -48,9 +48,6 @@ camera.position.z = 20
 # # is this required?
 # scene.add(camera)
 
-# follow window resize
-window.addEventListener('resize',())
-
 # START FUNCTION DEFINITIONS
 def animate(time):
 	"""
@@ -114,12 +111,6 @@ def getWebGLErrorMessage():
 def getWebGL2ErrorMessage():
 	return getErrorMessage( 2 )
 
-def resize_canvas():
-	# get the current window size
-	return {
-		"width": window.innerWidth,
-		"height": window.innerHeight
-	}
 
 # END FUNCTION DEFINITIONS
 
