@@ -3,51 +3,6 @@ from  pyweb3d.pyweb3d import *
 
 # the required libraries are loaded in the html page. Ignore the "not defined" warnings.
 
-# select the canvas to render the object
-canvas = document.querySelector('.webgl')
-
-# initialize and prepare the 3D scene
-scene = Scene()
-renderer = WebGLRenderer()
-# renderer = WebGLRenderer({canvas})
-renderer.setSize( window.innerWidth, window.innerHeight )
-
-# resize handler
-def onWindowResize(resize):
-    camera.aspect = window.innerWidth / window.innerHeight
-    camera.updateProjectionMatrix()
-    renderer.setSize( window.innerWidth, window.innerHeight )
-
-window.addEventListener( 'resize', onWindowResize )
-
-document.body.appendChild( renderer.domElement )
-
-# define the geometry and material
-geometry = SphereGeometry( 4, 16, 16 )
-material = MeshLambertMaterial(
-        {
-        'color': 0x772667
-        }
-    )
-
-#  create and add the Mesh object
-meshObj = Mesh( geometry, material )
-scene.add( meshObj )
-
-# add lighting to display the mesh object
-light = PointLight(0xFFFFFF)
-light.position.set(-10, 15, 50)
-scene.add( light )
-
-# add camera with appropriate field of view
-camera = PerspectiveCamera( 45,
-                           window.innerWidth / window.innerHeight,
-                           0.1,
-                           1000)
-camera.position.z = 20
-# # is this required?
-# scene.add(camera)
-
 # START FUNCTION DEFINITIONS
 def animate(time):
 	"""
@@ -111,8 +66,52 @@ def getWebGLErrorMessage():
 def getWebGL2ErrorMessage():
 	return getErrorMessage( 2 )
 
+# resize handler
+def onWindowResize(resize):
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize( window.innerWidth, window.innerHeight )
 
 # END FUNCTION DEFINITIONS
+
+# select the canvas to render the object
+canvas = document.querySelector('.webgl')
+
+# initialize and prepare the 3D scene
+scene = Scene()
+renderer = WebGLRenderer()
+renderer.setSize( window.innerWidth, window.innerHeight )
+renderer.setPixelRatio(2)
+
+window.addEventListener( 'resize', onWindowResize )
+
+document.body.appendChild( renderer.domElement )
+
+# define the geometry and material
+geometry = SphereGeometry( 4, 16, 16 )
+material = MeshLambertMaterial(
+        {
+        'color': 0x772667
+        }
+    )
+
+# create and add the Mesh object
+meshObj = Mesh( geometry, material )
+scene.add( meshObj )
+
+# add lighting to display the mesh object
+light = PointLight(0xFFFFFF)
+light.position.set(-10, 50, 50)
+scene.add( light )
+
+# add camera with appropriate field of view
+camera = PerspectiveCamera( 45,
+                           window.innerWidth / window.innerHeight,
+                           0.1,
+                           1000)
+camera.position.z = 20
+# is this required?
+scene.add(camera)
 
 if isWebGLAvailable():
 	# animate only if required WebGL is supported
