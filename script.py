@@ -10,8 +10,8 @@ def animate(time):
 	Ideally, this should be the only "non-pure" function that uses/modifies variables beyond its context.
 	"""
 	window.requestAnimationFrame( animate )
-	meshObj.rotation.x += 0.01
-	meshObj.rotation.y += 0.01
+	meshObj.rotation.x += 0.002
+	meshObj.rotation.y += 0.002
 	renderer.render( scene, camera )
 		
 def isWebGLAvailable():
@@ -88,10 +88,11 @@ window.addEventListener( 'resize', onWindowResize )
 document.body.appendChild( renderer.domElement )
 
 # define the geometry and material
-geometry = SphereGeometry( 4, 16, 16 )
+geometry = SphereGeometry( 4, 32, 32 )
 material = MeshLambertMaterial(
         {
-        'color': 0x772667
+			'wireframe': True,
+			'color': 0x772667
         }
     )
 
@@ -101,7 +102,7 @@ scene.add( meshObj )
 
 # add lighting to display the mesh object
 light = PointLight(0xFFFFFF)
-light.position.set(-10, 50, 50)
+light.position.set(0, 50, 50)
 scene.add( light )
 
 # add camera with appropriate field of view
