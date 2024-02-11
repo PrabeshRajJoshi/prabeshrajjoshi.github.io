@@ -45,7 +45,7 @@ scene.add( meshObj );
 
 
 // add lighting to display the mesh object
-const light = new THREE.PointLight(0xFFFFFF,2,100);
+const light = new THREE.PointLight(0xFFFFFF,3,100);
 light.position.set(0, 50, 50);
 scene.add( light );
 
